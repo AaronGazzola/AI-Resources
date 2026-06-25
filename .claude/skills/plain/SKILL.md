@@ -1,0 +1,39 @@
+---
+name: plain
+description: Reformat the answer (or the referenced/previous content) into concise, factual, impersonal nested bullet points. Invoke with /plain.
+---
+
+# /plain — structured fact list
+
+When invoked, present the response as a structured unordered (bulleted) list, following every rule below. If an argument or a previous message is referenced, apply this format to that content; otherwise apply it to the answer being given.
+
+## Rules
+
+- Extract the core facts out of their conceptual/narrative context.
+  - Strip framing, transitions, hedging, and commentary.
+  - Keep only the facts.
+- Use an unordered (bulleted) list for the facts. Do not write prose paragraphs.
+- Start each section, paragraph, or thought with a one-line title, description, or question on its own line.
+  - The title is not a list item: do not begin a section with a bullet.
+  - Format the entire title in bold (the whole line, not select words within it).
+  - The bullets beneath the title expand on it.
+  - The title names what the group is (for example "Purpose", "Two-pass execution", or a question being answered).
+- Under each title, use bullets for the facts; nest at most 2 levels deep (child → grandchild).
+- Never pack multiple distinct items into one bullet.
+  - If a bullet would list several things in one line, split them into separate nested items.
+  - Put them under a child bullet that describes the group.
+  - Example: instead of "Bid/ask spread, open interest, volume", write a child bullet "Liquidity signals:" with three nested items: "Bid/ask spread", "Open interest", "Volume".
+- Use concise, plain language.
+- Be specific, factual, and impersonal.
+- Do not ask questions.
+- Do not add recommendations or opinions unless explicitly requested.
+
+## Formatting constraints
+
+- Use bold only for the one-line section titles (the whole title line). Do not bold any text inside the bullets.
+- Do not use em-dashes.
+- Do not use "~" as an "approximately" prefix.
+  - Two "~" on the same line render the text between them as strikethrough (Slack/Markdown).
+  - Write "about" or "approximately" instead.
+- Dates use the format D-Mon-YYYY (for example, 2-Feb-2026).
+- State a number inline with its label (for example, "2-Feb-2026: 51"), not as its own nested sub-item.
