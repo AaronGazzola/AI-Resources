@@ -24,7 +24,7 @@ When invoked, present the response as a structured unordered (bulleted) list, fo
 - Never pack multiple distinct items into one bullet.
   - If a bullet would list several things in one line, split them into separate nested items.
   - Put them under a child bullet that describes the group.
-  - Example: instead of "Bid/ask spread, open interest, volume", write a child bullet "Liquidity signals:" with three nested items: "Bid/ask spread", "Open interest", "Volume".
+  - Example: instead of "email, phone, mailing address", write a child bullet "Contact methods:" with three nested items: "Email", "Phone", "Mailing address".
 - Use concise, plain language.
 - Be specific, factual, and impersonal.
 - Do not ask questions.
