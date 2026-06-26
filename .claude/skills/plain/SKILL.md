@@ -41,6 +41,7 @@ When invoked, present the response as a structured unordered (bulleted) list, fo
 ## Formatting constraints
 
 - Use bold only for the one-line section titles (the whole title line). Do not bold any text inside the bullets.
+- Put code identifiers in backticks so they render as code: file paths, file names, function names, variable names, and repository names (for example, `strategy.py`, `decide_and_size`, `edge_threshold`, `ptl-trade`).
 - Do not use em-dashes.
 - Do not use "~" as an "approximately" prefix.
   - Two "~" on the same line render the text between them as strikethrough (Slack/Markdown).
