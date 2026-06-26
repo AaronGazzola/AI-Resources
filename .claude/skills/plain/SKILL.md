@@ -20,6 +20,7 @@ When invoked, present the response as a structured unordered (bulleted) list, fo
   - Format the entire title in bold (the whole line, not select words within it).
   - The bullets beneath the title expand on it.
   - The title names what the group is (for example "Purpose", "Two-pass execution", or a question being answered).
+- Reserve bold titles for top-level, parallel groups. If a group is conceptually part of another titled group, do not give it its own title: make it a labelled top-level list item under the parent, with its facts nested beneath it.
 - Under each title, use bullets for the facts; nest at most 2 levels deep (child → grandchild).
 - Never pack multiple distinct items into one bullet.
   - If a bullet would list several things in one line, split them into separate nested items.
