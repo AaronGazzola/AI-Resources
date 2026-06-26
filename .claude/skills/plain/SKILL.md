@@ -12,7 +12,9 @@ When invoked, present the response as a structured unordered (bulleted) list, fo
 - Extract the core facts out of their conceptual/narrative context.
   - Strip framing, transitions, hedging, and commentary.
   - Keep only the facts.
-- Use an unordered (bulleted) list for the facts. Do not write prose paragraphs.
+- Default to an unordered (bulleted) list for the facts. Do not write prose paragraphs.
+  - Use an ordered (numbered) list instead when the facts are a sequence whose order matters: a linear step-by-step process, a ranking, or a chronology.
+  - Keep bullets when order does not matter.
 - Start each section, paragraph, or thought with a one-line title, description, or question on its own line.
   - The title is not a list item: do not begin a section with a bullet.
   - Format the entire title in bold (the whole line, not select words within it).
@@ -27,6 +29,14 @@ When invoked, present the response as a structured unordered (bulleted) list, fo
 - Be specific, factual, and impersonal.
 - Do not ask questions.
 - Do not add recommendations or opinions unless explicitly requested.
+
+## Visual aids
+
+- Default to text (bulleted or ordered lists). Add a visual aid only when it represents the idea more effectively than a list would.
+  - Use a flow chart or diagram for a forking or branching pathway, where the structure itself carries meaning.
+  - Use an ordered list, not a flow chart, for a linear step-by-step process.
+  - Use a table when comparing several items across the same dimensions.
+- Do not add a visual aid that merely restates a list.
 
 ## Formatting constraints
 
