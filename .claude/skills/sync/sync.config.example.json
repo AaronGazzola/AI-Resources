@@ -17,7 +17,7 @@
     "supabase": {
       "enabled": true,
       "projectRef": "<supabase-project-ref>",
-      "mcp": true
+      "method": "mcp"
     },
     "doppler": {
       "enabled": true,
