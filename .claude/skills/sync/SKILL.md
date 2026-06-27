@@ -83,12 +83,21 @@ Use the Linear MCP tools. Scope to `linear.team` / `linear.project` from config.
 
 ## 4. Supabase (if `supabase.enabled`)
 
-Use the Supabase MCP tools against `supabase.projectRef`.
+Target `supabase.projectRef`. Honor `supabase.method`:
 
-- `list_migrations` and compare to local `supabase/migrations/` — flag any local
+- `method: "mcp"` — use the Supabase MCP tools (`list_migrations`,
+  `get_advisors`, `list_branches`). **First confirm the MCP can actually see
+  `projectRef`** (`list_projects`); if the ref is absent, the MCP is
+  authenticated to a different org — fall back to the CLI and note it.
+- `method: "cli"` — use the linked Supabase CLI:
+  `npx supabase migration list`, `npx supabase branches list`. (Use this when
+  the MCP is pointed at another account.)
+
+Either way:
+- Compare remote migrations to local `supabase/migrations/` — flag any local
   migration not yet pushed, or remote migration not in the repo.
-- `get_advisors` (security + performance) — surface any errors/warnings.
-- `list_branches` if preview branches are used — note their state.
+- Surface any security/performance advisors (MCP `get_advisors`) when reachable.
+- Note preview branch state if branches are used.
 
 Do **not** apply migrations or mutate anything; this skill is read-only.
 
