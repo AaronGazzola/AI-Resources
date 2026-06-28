@@ -50,6 +50,15 @@ Build these capabilities once; reuse them every iteration.
    screenshots from fixed camera angles. This is how you get eyes without a human in the
    loop.
 
+6. **Isolate the period of interest, then sample it densely and repeatedly.** Do not sample
+   on a coarse fixed clock (e.g. one frame per second) across the whole run. Detect the exact
+   sub-interval that matters (one cycle, one grip window, one transition), take **N evenly
+   spaced snapshots across just that interval** (about 10), and **capture the interval many
+   times** (many cycles). Then **compare the instances**, state a **conclusion** from the
+   spread (mean/range/consistency), **pick the single instance closest to the median** as the
+   representative to show, and mark the snapshots that carry the conclusion. Present that one
+   instance as the sequence — comparison gives confidence, the representative gives clarity.
+
 Expand the harness whenever an iteration reveals something you could not isolate. A new
 question → a new overlay or signal. The harness grows toward exactly what the work needs.
 
