@@ -86,11 +86,15 @@ see, instantly**:
 - Prefer **full-config-in-link** over named-preset-in-link, so any one-off tuned state is
   shareable without first saving it.
 - The link is the demo. Hand it over alongside the visual aid every iteration.
-- **Make every artifact link click-to-open in the browser.** Link generated files (PDFs,
-  images) as an **absolute `file://` URL** (e.g. `file:///C:/path/to/aid.pdf`), or serve them
-  over the local server — never a relative repo path, which does not open on click. The point
-  is the human clicks once and the PDF/image displays (in Firefox or their default browser),
-  next to the demo link.
+- **Make every artifact link click-to-open in the human's surface.** Link generated files
+  (PDFs, images) in whatever form *their* tool resolves on click — there is no universal one,
+  so match the surface:
+  - in an **IDE chat** (e.g. VS Code), use a **workspace-relative path** (`docs/aid.pdf`),
+    which the IDE turns into a clickable link that opens the file;
+  - in a **browser** surface, use a **served `http(s)` URL** or an absolute `file://` URL.
+  Avoid the mismatch cases (a bare relative path in a browser, or a `file://` URL in some IDE
+  chats) — both render as dead links. The point is one click opens the PDF/image next to the
+  demo link; verify the form works in the human's environment.
 
 ## Part 4 — The iteration loop
 
