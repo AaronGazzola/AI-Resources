@@ -86,6 +86,11 @@ see, instantly**:
 - Prefer **full-config-in-link** over named-preset-in-link, so any one-off tuned state is
   shareable without first saving it.
 - The link is the demo. Hand it over alongside the visual aid every iteration.
+- **Make every artifact link click-to-open in the browser.** Link generated files (PDFs,
+  images) as an **absolute `file://` URL** (e.g. `file:///C:/path/to/aid.pdf`), or serve them
+  over the local server — never a relative repo path, which does not open on click. The point
+  is the human clicks once and the PDF/image displays (in Firefox or their default browser),
+  next to the demo link.
 
 ## Part 4 — The iteration loop
 
