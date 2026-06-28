@@ -80,6 +80,8 @@ Optimise every artifact for **signal density that stays human-readable**:
   - For a wide screen, a landscape row of frames is fine.
   - Either way: large enough fonts to read at the target width, one verdict line per step
     (colour-code good / none / bad), and a short caption under each frame.
+  - Default the artifacts to a **dark theme** (black background, light text, dark frame
+    panels) unless the human prefers otherwise.
 
 ## Part 3 — Share the live resource with the human
 
