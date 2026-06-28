@@ -71,9 +71,15 @@ Optimise every artifact for **signal density that stays human-readable**:
   - a plain **table** for several items across the same dimensions.
   Do not add a visual that merely restates a list.
 - **Package decisions, not just pixels.** The artifact should record: the observation, why
-  it is relevant, the change made, and the resulting effect. A good default is a **landscape
-  PDF**: images in sequence across the page, highlights on the relevant spots, a short
-  caption under each, and a final line stating the verdict.
+  it is relevant, the change made, and the resulting effect.
+- **Lay the artifact out for the screen it will be read on.** Find out the target display
+  width and scale to it; do not assume a wide landscape page.
+  - For a narrow screen (e.g. about 400px), use a **vertical (portrait) layout**: large-font
+    `/plain` notes (bold one-line title, then short bullets), and the **sequence images
+    cascading/staggered down one side** rather than a wide row that shrinks illegibly.
+  - For a wide screen, a landscape row of frames is fine.
+  - Either way: large enough fonts to read at the target width, one verdict line per step
+    (colour-code good / none / bad), and a short caption under each frame.
 
 ## Part 3 — Share the live resource with the human
 
