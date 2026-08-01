@@ -1,9 +1,9 @@
 ---
 name: simple
-description: Reformat the answer (or the referenced/previous content) into very short, jargon-free, passive-voice nested bullet points. Invoke with /simple.
+description: Reformat the answer (or the referenced/previous content) into very short, precise, passive-voice nested bullet points. Invoke with /simple.
 ---
 
-# /simple — plain-words fact list
+# /simple — precise fact list
 
 When invoked, present the response as a nested unordered (bulleted) list, following every rule below. If an argument or a previous message is referenced, apply this format to that content; otherwise apply it to the answer being given.
 
@@ -27,28 +27,56 @@ When invoked, present the response as a nested unordered (bulleted) list, follow
   - Example: instead of "three speeds: slow, medium, fast", write a child bullet "Three speeds:" with three nested items: "Slow", "Medium", "Fast".
   - Split this way even when only two things are listed.
 
+## Precision
+
+Precision outranks brevity and outranks plainness. A bullet that is short but vague is wrong.
+
+- Name the specific thing. Do not describe it in the abstract.
+  - Name routes, files, tables, columns, commands, tickets, branches, and functions where they are the subject.
+  - Write `/studio/timeline/[streamId]`, not "the timeline page".
+  - Write "the `az-206-stream-timeline-backfill` branch has no commits", not "nothing has been saved".
+  - Write "AZ-210", not "a ticket about chat timing".
+- Use the real term when the real term is exact.
+  - Established vocabulary is allowed: commit, branch, migration, index, route, table, column, query, deploy.
+  - Product and tool names are allowed: git, Linear, OpenSpec, Supabase, YouTube, Doppler.
+  - Backticks are allowed for identifiers, paths, commands, and routes.
+- Ban vague filler. Every one of these is a defect:
+  - Empty abstractions: "the main line of code", "the system", "the pipeline", "things".
+  - Unquantified judgements: "judged good", "works well", "mostly done", "cleaned up".
+  - Origin-free phrasing: "created from nothing", "sorted out", "handled".
+- Replace a judgement with the evidence behind it.
+  - Write "never opened in a browser; needs manual verification", not "not yet judged good".
+  - Write "47 unit tests pass; the Playwright spec has never been run", not "tested".
+- State what an unfinished item requires, not merely that it is unfinished.
+  - Name the blocking action: manual browser check, live stream, owner decision, external key.
+- Where a count, size, date, or identifier is known, give it.
+
+## Relevance
+
+- Include a fact only when it bears on the current state or the current change.
+- Mention prior versions, deleted code, or earlier attempts only when one of these holds:
+  - The old version was used as the basis for the new one.
+  - The old version's code was reused.
+  - The old version's behaviour constrains the new one.
+  - The old version still exists somewhere and must be dealt with.
+- Where prior work is mentioned, state which of the above applies.
+- Do not report history as context or colour.
+
 ## Language
 
-- Use no technical jargon.
-  - Replace every term that assumes specialist knowledge with everyday words.
-  - Where a term has no everyday equivalent, describe what the thing does instead of naming it.
-- Do not name files, folders, functions, variables, settings, commands, or tools.
-  - Describe the thing by its effect instead (for example, "the page that lists the videos").
-  - Do not put anything in backticks or code formatting.
 - Write every fact in the passive voice.
   - Example: "the video is uploaded", not "the system uploads the video".
   - Name the actor only when the fact is meaningless without it.
-- Keep every bullet very short.
-  - Aim for under ten words.
+- Keep every bullet short.
+  - Aim for under fifteen words.
   - State one fact per bullet.
   - Use no subordinate clauses: start a new bullet instead.
-- Never trade accuracy for shortness.
-  - Keep exact amounts, times, and names of real-world things.
-  - Keep the exact outcome, even where extra words are needed.
-  - A shorter bullet that is vaguer is wrong.
+- Explain a term the reader is unlikely to know, in a nested bullet, once.
+  - Do not substitute a vaguer word for it.
 - Be specific and factual.
 - Do not ask questions.
 - Do not add recommendations or opinions unless explicitly requested.
+  - Where they are requested, mark them as a nested bullet beginning "Recommended:".
 
 ## Visual aids
 
