@@ -227,34 +227,71 @@ paragraphs, no numbered lists, passive voice, no pronouns as subjects, every too
 and service named directly by its own name, no file paths or commit hashes, no
 em-dashes, dates as D-Mon-YYYY.
 
-The report is a status glance, not a document. Hold to these limits:
+The report answers three questions and nothing else: where things stand right
+now, which loose ends are open, and where work resumes. Hold to these limits:
 
-- At most 5 bullets under any one section title.
-- One fact per bullet, under fifteen words.
-- A section with nothing to report gets exactly one bullet saying so, such as
-  "No drift found between specs and code."
-- Where more than 5 items exist, report the count and what distinguishes the
-  group, never the list.
-- No section narrating what was gathered or how.
+- **Present state only.** Report what is true at this moment. Never report what
+  was fetched, pulled, deleted, copied or checked during the run. An action taken
+  this run appears only where the action left a loose end.
+- **Green is silent.** A healthy optional integration is not mentioned at all. A
+  section with genuinely nothing open gets one bullet saying so, and no more.
+- At most 6 top-level bullets under any one section title.
+- One fact per bullet, under fifteen words. Nest the detail rather than extending
+  the bullet.
+- Where more than 6 items share a state, give the count and what distinguishes
+  the group, never the list.
+
+**Source-anchored nesting.** Every finding is filed under the artefact that owns
+it, and the artefact leads the line:
+
+- A ticket bullet begins with the identifier, then the title, then the state.
+  Everything known about that ticket is nested beneath.
+  - `AZ-218 — Locomotion CPG against planted feet. Todo, High.`
+- A spec bullet begins with the change name, then the task count, then the
+  bucket. The next action and any human-blocked task are nested beneath.
+- A roadmap bullet begins with a link to the document, then current or stale. The
+  specific wrong lines are nested beneath.
+- A database bullet begins with the table, policy or function at fault.
+- A branch bullet begins with the branch name.
+
+Nested detail is where specificity lives. A nested bullet names the exact test,
+the exact task number, the exact policy, the exact line. Vague nesting is worse
+than no nesting.
 
 Sections, in this order, each with a bold one-line title:
 
-- **Blockers** — anything red. Omit the whole section when nothing is red.
-- **Branches** — current branch, clean or dirty, ahead or behind, which branch
-  holds the newest work, whether production has undeployed commits.
-- **Specs** — one bullet per active OpenSpec change: bucket, tasks done out of
-  total, the single next action.
-- **Tickets** — one bullet per group: ready to close after a named test, still
-  needing code, backlog only.
-- **Database** — migration parity, then advisors, then any live-data finding.
-- **Skills** — what was copied in from the shared skills repo, and which shared
-  skills are newer here and so awaiting a decision to push. Skills that exist
-  only here are never mentioned.
-- **Roadmap** — current or stale per doc, then one bullet stating where the
+- **Blockers** — anything red, each filed under the artefact that is stuck. Omit
+  the whole section when nothing is red.
+- **Branches** — the trunk first, then any branch holding unmerged work.
+  - Under the trunk: clean or dirty, ahead or behind, and whether production is
+    carrying undeployed commits.
+  - Under a feature branch: its newest commit date and what the branch holds.
+  - A branch with nothing unmerged is not listed.
+- **Specs** — one bullet per active OpenSpec change, source-anchored as above.
+  - Nested: the single next actionable task, by number.
+  - Nested: each task blocked on a human, by number, naming the decision needed.
+- **Tickets** — grouped by what the ticket needs, with the groups as labelled
+  top-level bullets and the tickets nested beneath by identifier.
+  - Needs verification only, with the exact test that closes each ticket.
+  - Needs code still.
+  - Drifted, where the ticket no longer describes the live direction.
+  - Backlog is given as a count only, never enumerated.
+- **Database** — one bullet per fault, anchored on the table, policy or function.
+  Advisories of the same kind are collapsed into one bullet with a count.
+- **Skills** — only genuine drift against the shared skills repo. One bullet when
+  none is found.
+- **Roadmap** — one bullet per document, then one bullet stating where the
   project actually stands.
-- **Next steps** — at most 5 bullets, in priority order, one action each, each
-  naming a concrete ticket, spec or branch and the verb: build, test, verify,
+- **Loose ends** — everything open that is not already a next step: an unchecked
+  task that belongs in Linear, a stale document, an undeployed commit, a ticket
+  whose title has drifted. Omit when empty.
+- **Next steps** — at most 5 bullets, in priority order, one action each,
+  beginning with the ticket, spec or branch, then the verb: build, test, verify,
   archive, reconcile, push.
+- **Suggested next batch** — a shortlist of at most 4 tickets recommended for the
+  next block of work, each with one nested line saying why that ticket is ready
+  and what it unblocks. Backlog tickets appear here only with a note that
+  promotion into a new OpenSpec change comes first.
 
 Priority order for next steps: unblock anything red first; then verify and
 archive work that is already code-complete; then finish an in-progress spec; then
