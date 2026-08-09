@@ -220,83 +220,74 @@ run statuses; flag failed or stuck).
 
 ## 3. Report
 
-Write the whole report in **`/simple` format** — read
-`.claude/skills/simple/SKILL.md` and follow it exactly. In particular: bold
-one-line section titles that are not list items, bulleted facts only, no prose
-paragraphs, no numbered lists, passive voice, no pronouns as subjects, every tool
-and service named directly by its own name, no file paths or commit hashes, no
-em-dashes, dates as D-Mon-YYYY.
+Everything gathered above is held in context so the user can ask follow-up
+questions. Almost none of it is printed. The report is a **synthesis, not an
+inventory**: the user is being told where the project stands and what to do
+next, in the fewest bullets that carry the meaning.
 
-The report answers three questions and nothing else: where things stand right
-now, which loose ends are open, and where work resumes. Hold to these limits:
+Write it in **`/simple` format** — read `.claude/skills/simple/SKILL.md` and
+follow it exactly: bold one-line section titles that are not list items,
+bulleted facts only, no prose paragraphs, no numbered lists, passive voice, no
+pronouns as subjects, every tool and service named directly, no commit hashes,
+no em-dashes, dates as D-Mon-YYYY.
 
-- **Present state only.** Report what is true at this moment. Never report what
-  was fetched, pulled, deleted, copied or checked during the run. An action taken
-  this run appears only where the action left a loose end.
-- **Green is silent.** A healthy optional integration is not mentioned at all. A
-  section with genuinely nothing open gets one bullet saying so, and no more.
-- At most 6 top-level bullets under any one section title.
-- One fact per bullet, under fifteen words. Nest the detail rather than extending
-  the bullet.
-- Where more than 6 items share a state, give the count and what distinguishes
-  the group, never the list.
+### What the report is for
 
-**Source-anchored nesting.** Every finding is filed under the artefact that owns
-it, and the artefact leads the line:
+The user reads this to answer one question: *what do I need to know to keep
+going?* Every bullet earns its place by changing what the user does next. A
+bullet that merely proves the gathering happened is deleted.
 
-- A ticket bullet begins with the identifier, then the title, then the state.
-  Everything known about that ticket is nested beneath.
-  - `AZ-218 — Locomotion CPG against planted feet. Todo, High.`
-- A spec bullet begins with the change name, then the task count, then the
-  bucket. The next action and any human-blocked task are nested beneath.
-- A roadmap bullet begins with a link to the document, then current or stale. The
-  specific wrong lines are nested beneath.
-- A database bullet begins with the table, policy or function at fault.
-- A branch bullet begins with the branch name.
+- **Synthesize, do not enumerate.** State the conclusion drawn from a source,
+  not the rows read from the source.
+  - Rejected: six bullets, one per advisory.
+  - Accepted: "Six database warnings are open, none high risk."
+- **Green gets one reassuring bullet, never a list.** Where an area is aligned
+  and needs no action, say so in one line and move on.
+  - Accepted: "Database migrations are aligned between the repository and Supabase."
+- **Dead work is one bullet, as a group.** Abandoned branches, superseded
+  approaches and cancelled tickets are named as a count and a shared cause, never
+  itemised. Where dead work needs a decision, that decision is the bullet.
+- **Name a thing only where the user must act on that thing.** A ticket
+  identifier, spec name or branch name appears when the user will open it. It
+  does not appear as evidence.
+- **No inventories of healthy things.** Branches with no work in progress,
+  passing checks, and integrations that are fine are all silent.
 
-Nested detail is where specificity lives. A nested bullet names the exact test,
-the exact task number, the exact policy, the exact line. Vague nesting is worse
-than no nesting.
+### Length
 
-Sections, in this order, each with a bold one-line title:
+- The whole report fits on one screen.
+- At most 4 bullets under any section title, and at most one level of nesting.
+- Nesting is used only where a next step needs its condition stated.
+- Where a section would exceed 4 bullets, the bullets are being enumerated
+  instead of synthesized: collapse them.
 
-- **Blockers** — anything red, each filed under the artefact that is stuck. Omit
-  the whole section when nothing is red.
-- **Branches** — the trunk first, then any branch holding unmerged work.
-  - Under the trunk: clean or dirty, ahead or behind, and whether production is
-    carrying undeployed commits.
-  - Under a feature branch: its newest commit date and what the branch holds.
-  - A branch with nothing unmerged is not listed.
-- **Specs** — one bullet per active OpenSpec change, source-anchored as above.
-  - Nested: the single next actionable task, by number.
-  - Nested: each task blocked on a human, by number, naming the decision needed.
-- **Tickets** — grouped by what the ticket needs, with the groups as labelled
-  top-level bullets and the tickets nested beneath by identifier.
-  - Needs verification only, with the exact test that closes each ticket.
-  - Needs code still.
-  - Drifted, where the ticket no longer describes the live direction.
-  - Backlog is given as a count only, never enumerated.
-- **Database** — one bullet per fault, anchored on the table, policy or function.
-  Advisories of the same kind are collapsed into one bullet with a count.
-- **Skills** — only genuine drift against the shared skills repo. One bullet when
-  none is found.
-- **Roadmap** — one bullet per document, then one bullet stating where the
-  project actually stands.
-- **Loose ends** — everything open that is not already a next step: an unchecked
-  task that belongs in Linear, a stale document, an undeployed commit, a ticket
-  whose title has drifted. Omit when empty.
-- **Next steps** — at most 5 bullets, in priority order, one action each,
-  beginning with the ticket, spec or branch, then the verb: build, test, verify,
-  archive, reconcile, push.
-- **Suggested next batch** — a shortlist of at most 4 tickets recommended for the
-  next block of work, each with one nested line saying why that ticket is ready
-  and what it unblocks. Backlog tickets appear here only with a note that
-  promotion into a new OpenSpec change comes first.
+### Sections
 
-Priority order for next steps: unblock anything red first; then verify and
-archive work that is already code-complete; then finish an in-progress spec; then
-reconcile a stale spec or roadmap; and only then start new work promoted from a
-backlog item.
+Use only these, in this order. Omit any section with nothing to say.
+
+- **Where things stand** — the position, in at most 4 bullets.
+  - Which branch is checked out, whether that branch holds the latest work, and
+    whether anything is undeployed.
+  - Whether the roadmap, the active spec and the tickets agree on the current
+    direction, said as one judgement rather than three verdicts.
+  - How far through the current phase the work is.
+  - Anything abandoned, as a single grouped bullet.
+- **Needs attention** — at most 4 loose ends, each one the user must decide or
+  clean up. State what is wrong and what closes it, in one line each.
+- **Continue here** — at most 4 next actions, in priority order, each beginning
+  with the spec, ticket or branch and then the verb.
+  - Nest a condition only where an action cannot start without it.
+- **Next batch** — at most 3 tickets recommended for the block of work after the
+  current one, one line each saying why the ticket is ready. Include only when
+  the current work is near enough to done that the question is live.
+
+Close with a single line offering the detail held in context, naming the areas
+where detail exists. That line is not a section and carries no bullet.
+
+Priority order within **Continue here**: unblock anything red first; then verify
+and archive work that is already code-complete; then finish the in-progress spec;
+then reconcile a stale document or ticket; and only then start new work promoted
+from a backlog item.
 
 ## Installing into a new project
 
