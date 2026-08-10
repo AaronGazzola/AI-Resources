@@ -125,17 +125,24 @@ whatever the commit dates say, because the local edit has not been committed yet
 and its commit date is therefore stale. Never overwrite an uncommitted local
 edit.
 
-- Shared repo newer → **copy the shared version over the local one**, and report
-  the skill name and both dates. This is a permitted write.
-- Local repo newer → **do not push**. Report the skill name, both dates, and a
-  one-line summary of what differs, then ask the user whether the local version
-  should be pushed to the shared repo.
-- A skill present in the shared repo and missing here → copy it in, and report it.
+- Shared repo newer → **copy the shared version over the local one, silently.**
+  This is a permitted write and it is **not reported**: a skill arriving from the
+  shared repo needs no decision from the user.
+- A skill present in the shared repo and missing here → copy it in, silently, for
+  the same reason.
+- Local repo newer → **do not push**, and **report it**. Name the skill and give
+  a one-line summary of what the local version changed, then ask whether the
+  local version should be pushed to the shared repo.
 - Dates equal but content differs → report as a conflict and ask; never guess.
 
-Only skills that exist on **both** sides are compared and reported. A skill that
-exists here and not in the shared repo is out of scope: it is not compared, not
-pushed, and not mentioned in the report at all.
+The **only** reason this section appears in the report is a local version the
+user may want pushed to the shared repo. Where every difference resolved in the
+shared repo's favour, the section is omitted entirely and no bullet mentions
+skills at all.
+
+Only skills that exist on **both** sides are compared. A skill that exists here
+and not in the shared repo is out of scope: it is not compared, not pushed, and
+not mentioned in the report at all.
 
 Never push to the shared repo without the user saying so in the current
 conversation.
@@ -274,6 +281,8 @@ Use only these, in this order. Omit any section with nothing to say.
   - Anything abandoned, as a single grouped bullet.
 - **Needs attention** — at most 4 loose ends, each one the user must decide or
   clean up. State what is wrong and what closes it, in one line each.
+  - A skill whose local version is newer than the shared repo's belongs here, as
+    the one question it raises: push the local version, or not.
 - **Continue here** — at most 4 next actions, in priority order, each beginning
   with the spec, ticket or branch and then the verb.
   - Nest a condition only where an action cannot start without it.
