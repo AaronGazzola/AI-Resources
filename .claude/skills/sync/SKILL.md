@@ -225,13 +225,16 @@ next one can resume without re-deriving it. It is disposable by design and goes
 stale the moment anything changes. It is **never** a reference and is **never**
 cited as a source.
 
-Search the repo root and `docs/` for both forms, tracked and untracked:
+`docs/handover/` is where `/handover` writes them, so search there first, then
+the repo root and the rest of `docs/`. Search tracked and untracked files, and
+look for both forms:
 
 - **The convention:** `TEMP` and a date in the filename, in any arrangement and
-  any date format (`TEMP-11-Aug-2026-handover.md`, `TEMP_2026-08-11.md`).
+  any date format (`TEMP-11-Aug-2026.md`, `TEMP_2026-08-11-handover.md`).
 - **The fallback:** any Markdown file whose own opening lines declare it
-  delete-after-reading or call itself a handover, whatever the filename. A
-  document written before the convention existed is still a handover document.
+  delete-after-reading or call itself a handover, whatever the filename or
+  wherever it sits. A document written before the convention existed is still a
+  handover document.
 
 Handle every document found, in this order:
 
