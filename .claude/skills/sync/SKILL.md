@@ -1,6 +1,6 @@
 ---
 name: sync
-description: Pull the latest git state and sync it against Linear, OpenSpec, the roadmap docs, Supabase and the shared skills repo, then report in /simple format on branches, tickets, specs and roadmap position, ending with next steps. Hard-fails if git, the Linear MCP or the Supabase MCP is unreachable. Invoke with /sync.
+description: Pull the latest git state and sync it against Linear, OpenSpec, the roadmap docs, Supabase and the shared skills repo, read and delete any handover document left for this session, then report in /simple format on branches, tickets, specs and roadmap position, ending with next steps. Hard-fails if git, the Linear MCP or the Supabase MCP is unreachable. Invoke with /sync.
 ---
 
 # /sync — project state sync + next-steps report
@@ -9,10 +9,11 @@ Gather the live state of git, Linear, OpenSpec, the roadmap docs, Supabase and
 the shared skills repo, cross-reference all of them against the actual code, and
 produce one short report that ends with the next steps.
 
-Only three writes are permitted, and no other: a fast-forward `git pull`, a
-fast-forward `git pull` inside the shared skills clone, and copying a newer
-skill file from the shared skills repo into this repo. Nothing is ever written
-to Linear, OpenSpec, Supabase, Vercel or any deployment.
+Only four writes are permitted, and no other: a fast-forward `git pull`, a
+fast-forward `git pull` inside the shared skills clone, copying a newer skill
+file from the shared skills repo into this repo, and deleting a handover
+document that has been read into context. Nothing is ever written to Linear,
+OpenSpec, Supabase, Vercel or any deployment.
 
 Every command in this skill authenticates with credentials that already exist:
 the user's SSH key for git, and already-connected MCP servers for Linear and
@@ -217,6 +218,40 @@ Read the paths listed in `docs.roadmap`. If the config lists none, search
 - Then one line stating where the project actually stands: which phase is done,
   which is in flight, what the next milestone is.
 
+### Handover documents — always, and read before anything is concluded
+
+A handover document is a one-shot baton written by the previous session so the
+next one can resume without re-deriving it. It is disposable by design and goes
+stale the moment anything changes. It is **never** a reference and is **never**
+cited as a source.
+
+Search the repo root and `docs/` for both forms, tracked and untracked:
+
+- **The convention:** `TEMP` and a date in the filename, in any arrangement and
+  any date format (`TEMP-11-Aug-2026-handover.md`, `TEMP_2026-08-11.md`).
+- **The fallback:** any Markdown file whose own opening lines declare it
+  delete-after-reading or call itself a handover, whatever the filename. A
+  document written before the convention existed is still a handover document.
+
+Handle every document found, in this order:
+
+- **Read it in full first**, before the roadmap, the spec and the tickets are
+  judged. Its contents inform the whole report.
+- **Decide current or stale.** A handover document is stale when a
+  later-dated handover document exists, or when commits land after its date. The
+  most recent handover document is the current one; there is only ever one.
+- **Delete every handover document read**, current and stale alike. The current
+  one is deleted because it has now been read; a stale one is deleted because it
+  is superseded. Deletion needs no confirmation: the contents are in context and
+  the file is recoverable from git history.
+- **Never carry an undated claim from a handover document into the report as
+  current.** Where a handover claim matters, confirm it against the code, the
+  roadmap or the spec first, and report that source instead.
+
+Where the active spec carries a task to rewrite a handover document, that task
+now means writing a fresh `TEMP`-and-date file. Flag it where the task still
+names the deleted path.
+
 ### Optional integrations
 
 Run only when enabled, and give each one line in the report unless it is red:
@@ -272,6 +307,13 @@ bullet that merely proves the gathering happened is deleted.
 
 Use only these, in this order. Omit any section with nothing to say.
 
+- **Handover read and deleted** — one bullet per handover document handled, at
+  most 3, omitted entirely when none was found.
+  - Each bullet carries the document's date, whether the document was current or
+    stale, one clause saying what the document contained, and that the document
+    was deleted.
+  - The contents themselves are not reproduced: what a handover document says
+    about the project belongs in the sections below, confirmed against the code.
 - **Where things stand** — the position, in at most 4 bullets.
   - Which branch is checked out, whether that branch holds the latest work, and
     whether anything is undeployed.
