@@ -1,11 +1,37 @@
 ---
 name: simple
-description: Reformat the answer (or the referenced/previous content) into short, plain-language, passive-voice nested bullet points that state what is meant rather than what things are called. Invoke with /simple.
+description: Reformat the answer (or the referenced/previous content) into short, plain-language, passive-voice nested bullet points, ordered as a Minto pyramid, that state what is meant rather than what things are called. Invoke with /simple.
 ---
 
 # /simple — plain-meaning fact list
 
 When invoked, present the response as a nested unordered (bulleted) list, following every rule below. If an argument or a previous message is referenced, apply this format to that content; otherwise apply it to the answer being given.
+
+## Answer first
+
+The list is a Minto pyramid: the answer sits at the top, and everything below it exists only to support the answer.
+
+- Open with the answer on a single bold line, before the first section title.
+  - The answer states the conclusion, not the topic.
+    - Rejected: "The chat replay timing was investigated."
+    - Accepted: "Chat replay runs about 90 seconds early on every recorded broadcast."
+  - Where the request is a question, the opening line answers that question outright.
+  - Where no single conclusion exists, the opening line states the one fact that changes what is done next.
+- Every title and every parent bullet summarises what sits beneath it.
+  - The reader must be able to stop at any level and still hold a true, complete statement.
+  - A parent that only labels its children is a defect.
+    - Rejected: "Findings:", "Notes:", "Database:".
+    - Accepted: "Three broadcasts have no saved chat log."
+  - A parent must not introduce a fact that none of its children support.
+- Group so the groups do not overlap and together cover the answer.
+  - A fact that fits two groups means the groups are drawn wrongly: redraw them.
+  - A part of the answer with no group means a group is missing.
+- Order the groups by how much each one changes what the reader does, most first.
+  - Order the bullets inside a group by time where the group is a sequence.
+  - Order them by importance in every other case.
+  - Never order by where the facts were found or by the order they were written in.
+- Put the recommended action, where one is requested, directly under the opening answer line.
+  - Supporting detail follows the recommendation, never the reverse.
 
 ## Structure
 
