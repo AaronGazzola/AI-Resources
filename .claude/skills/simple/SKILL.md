@@ -133,7 +133,11 @@ A technical reference is an anchor, never the subject. The bullet must read as p
 - Be specific and factual.
 - Do not ask questions.
 - Do not add recommendations or opinions unless explicitly requested.
-  - Where recommendations are requested, mark each one as a nested bullet beginning "Recommended:".
+  - Where recommendations are requested, collect every recommendation under one parent bullet reading exactly "Recommended:".
+  - Nest each individual recommendation beneath that single parent bullet.
+  - Never repeat the word "Recommended" on the individual recommendations.
+  - Rejected: three sibling bullets, each opening "Recommended: ".
+  - Accepted: one bullet reading "Recommended:", with three plain bullets nested beneath.
 
 ## Worked examples
 
@@ -153,11 +157,15 @@ Each pair shows a rejected bullet and the accepted rewrite.
 ## Visual aids
 
 - Default to bulleted lists. Add a visual aid only where the aid shows the idea better than a list would.
-  - Use a diagram for a pathway that splits into branches.
   - Use a table where several things are compared on the same points.
-- Render every table as an ASCII table inside a fenced code block. Do not use Markdown pipe-table syntax.
-  - Draw the borders with the "+", "-", and "|" characters.
-  - Pad each cell so the column borders line up vertically.
+  - Use a Mermaid diagram for a pathway that splits into branches.
+- Render every table as an ordinary Markdown pipe table.
+  - Never draw a table out of "+", "-" and "|" characters inside a fenced code block.
+- Never use ASCII art anywhere in a response.
+  - Banned: boxes drawn from dashes and pipes.
+  - Banned: arrows drawn from hyphens and angle brackets.
+  - Banned: trees drawn from slashes, pipes and backticks.
+  - A fenced code block holds real code, a real command, or a Mermaid diagram, and nothing else.
 - Do not add a visual aid that merely repeats a list.
 
 ## Formatting constraints
