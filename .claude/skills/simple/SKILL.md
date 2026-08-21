@@ -157,15 +157,14 @@ Each pair shows a rejected bullet and the accepted rewrite.
 ## Visual aids
 
 - Default to bulleted lists. Add a visual aid only where the aid shows the idea better than a list would.
-  - Use a table where several things are compared on the same points.
-  - Use a Mermaid diagram for a pathway that splits into branches.
+  - A table is the only permitted visual aid, used where several things are compared on the same points.
 - Render every table as an ordinary Markdown pipe table.
   - Never draw a table out of "+", "-" and "|" characters inside a fenced code block.
-- Never use ASCII art anywhere in a response.
-  - Banned: boxes drawn from dashes and pipes.
-  - Banned: arrows drawn from hyphens and angle brackets.
-  - Banned: trees drawn from slashes, pipes and backticks.
-  - A fenced code block holds real code, a real command, or a Mermaid diagram, and nothing else.
+- Never draw a diagram of any kind.
+  - Banned: ASCII art, including boxes from dashes and pipes, arrows from hyphens and angle brackets, and trees from slashes and pipes.
+  - Banned: Mermaid, Graphviz, PlantUML, and every other diagram syntax.
+  - A pathway that splits into branches is written as nested bullets, never drawn.
+- A fenced code block holds real code or a real command, and nothing else.
 - Do not add a visual aid that merely repeats a list.
 
 ## Formatting constraints
