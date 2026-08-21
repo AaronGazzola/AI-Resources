@@ -112,11 +112,11 @@ where the change id alone does not say what the work is.
 - Note the single next unchecked task, in the user's terms rather than the file's.
 - Read the text of each unchecked box, not just the count. A box annotated in the
   file as not done, deferred, or impossible without something outside the code is
-  not remaining work; it is a governance loose end, and it goes to **Mismatches**.
+  not remaining work; it is a governance loose end, and it goes to **Open items**.
 - Spot-check the code behind any change that reports itself complete or nearly
   complete: open one or two files named in its last tasks and confirm the work
   exists. A checked box over code that does not exist, and an unchecked box over
-  code that does, are both drift, and both go to **Mismatches**.
+  code that does, are both drift, and both go to **Open items**.
 
 Read `openspec/changes/archive/` only to resolve a ticket that claims a change
 which is no longer active.
@@ -191,9 +191,11 @@ in this order, and **omit any category with no tasks in it**:
 A task belongs to exactly one category. Where two fit, the earlier category in
 the list wins, because that is the more pressing reading of the same work.
 
-An entire group with no tasks is omitted, with one exception: where **In
-progress** is empty, say so in one line, because nothing being in flight is
-itself the answer.
+An empty category is omitted, and so is an entire empty group. Nothing is ever
+reported as empty: no section title is printed over a line saying it holds
+nothing, and no group is announced in order to say it is quiet. A group the
+reader cannot see is a group with nothing in it, and that reads faster than a
+sentence saying so.
 
 ## 6. Order
 
@@ -214,97 +216,148 @@ override is stated on the line in a few words.
 
 ## 7. Report
 
-### A task line
+### A task is two levels
 
-One bullet per task, nested under its category parent. Nothing nested under a
-task except a blocking relation.
+One top-level bullet naming the task and saying what it is, then nested bullets
+carrying every detail. Nothing sits on the top line except the name and the
+sentence.
 
-Each task bullet carries three things, in this order and nothing else:
+**The top line** is the identifiers, a colon, and one sentence of plain words.
 
-- The identifiers in bold: the ticket identifier, the change id, or both. Where
-  only one record exists, that one identifies the task and the missing half is
-  not mentioned unless the pairing itself is the finding.
-- What the work actually is, in one clause of plain words. Say what the task
-  means rather than repeating a title that names a feature without describing it.
-- The progress, in one clause: what exists in code, and what does not. Where a
-  change is paired, give its checked-of-total count. Where nothing is started,
-  the progress clause is the single word "not started".
+- The identifiers are the ticket, the change id, or both joined by a slash.
+- The sentence says what would change if the work were done. It describes the
+  work, rather than repeating a title that names a feature without saying what
+  it does.
+- The sentence stands alone. A reader who stops after it knows what the task is.
+- Nothing else goes here. No count, no caveat, no "not started", no reason for
+  its placement.
 
-Give the reason for an unusual placement in three or four words inside the same
-bullet, never as its own line.
+**The nested bullets** carry one fact each, in this order, and only where they
+apply:
+
+- Progress: what exists in code and what does not, with the change's
+  checked-of-total count where a change is paired. "Not started" where nothing
+  exists.
+- The closing check, for a **Code complete** task, written as described below.
+- What the task blocks, naming the blocked tasks.
+- Anything that would otherwise surprise the reader: a ticket left in a state
+  that contradicts its change, a pairing that was judged rather than declared, a
+  placement that needs its reason given.
+
+Keep every bullet to one line. A bullet needing a second clause is two bullets.
+Never nest a third level under a task.
 
 ### Shape
 
-A category parent, then its tasks indented beneath it:
-
 - **Security:**
-  - **AZ-272** Server Actions reachable by any caller run under the service role,
-    switching row-level security off at roughly 170 call sites. Not started.
-- **Bugs:**
-  - **AZ-211** Bot replies are read back out of chat and stored a second time
-    under the bot's name. Not started, duplicate rows in the permanent record.
+  - **AZ-272**: Stop user-facing Server Actions from running with the key that
+    bypasses row-level security.
+    - Roughly 170 call sites are affected, so authorization currently rests on
+      hand-written checks rather than on database policy.
+    - Not started.
 - **Features:**
-  - **AZ-275 / `add-chatters-panel`** A standing list of who is in the broadcast,
-    each with their recall notes. Spec at 0 of 24, fully written and ready to
-    build; the ticket has not been moved off Backlog.
-  - **`add-chatter-sound-effects`** A chatter's own short sound plays on their
-    highlighted message. Spec at 0 of 30, no ticket.
+  - **AZ-275 / `add-chatters-panel`**: Add a standing list of who is in the
+    broadcast, with each person's figures and recall notes, for the second
+    monitor beside OBS.
+    - Spec at 0 of 24, fully written and ready to build.
+    - The ticket has not been moved off Backlog.
 
-Rejected lines:
+Rejected:
 
-- "**AZ-171** Fix worker bug. In progress." — names nothing specific and gives no
-  progress.
+- A top line carrying a count, a progress clause or a caveat. Those are nested.
+- "**AZ-171**: Fix worker bug." Names nothing specific.
+- A category parent with nothing under it.
 - A line carrying labels, dates, assignee, priority number or a URL.
-- A category parent that ends up with nothing under it.
 
-### Code complete needs its closing test named
+### Name a thing and say what it is, every time
 
-Every task in the **Code complete** group carries a fourth clause the other
+The reader is scanning a list, not holding the project in their head. An
+identifier they have to look up, or a word only this codebase uses, stops them.
+
+- **Never name a ticket, a change or a numbered task by its identifier alone.**
+  Every reference carries what it is, in a few words in parentheses: "AZ-277
+  (adding test seams to the command path)", "task 4.1 (the charge-order test)".
+- **Never use an internal term without saying what it means in the same
+  sentence.** Words like seam, sink, ladder, rung, settle and phase are jargon to
+  a reader coming back after a week. Either say the plain thing, or say the term
+  and then what it means.
+- **Say what the reader would do about it**, not only what is true. Where
+  something needs checking, name the command to run or the screen to look at.
+- **Say whether something is actually done.** "Marked not done" and "not done"
+  are different claims, and a reader cannot act until the line says which.
+
+### Code complete names its closing check
+
+Every task in the **Code complete** group carries a nested bullet the other
 groups do not: **what has to pass before the change is archived and the ticket
-closed**. Without it the group is a list of things nobody knows how to finish.
+closed.** Without it the group is a list of things nobody knows how to finish.
 
 Name the actual check, never "verify it works":
 
-- A test file or command to run, named exactly.
-- A browser or app check, named as the screen and the thing to look for.
+- A test file or command to run, written exactly as it would be typed.
+- An app check, named as the screen and the thing to look for.
 - An on-stream or production confirmation, named as the moment to watch.
 - The validate-and-archive step, where it is genuinely all that remains.
 
 Where the closing check cannot be done in code, say which ticket holds it, and
-where no ticket holds it, say that a ticket is needed. Governance says non-code
-work leaves the change; this group is where that is noticed.
-
-Worked line:
-
-- **`add-live-quality-ladder` / AZ-250** The quality ladder that lets a throttled
-  viewer drop a rung instead of stalling. Spec at 38 of 39, all code written.
-  Closes by switching the ladder on for one whole broadcast, watching the
-  machine's load and the real latency, and confirming in a throttled browser that
-  the rendition changes and playback continues, then running
-  `openspec validate --strict` and archiving.
+where no ticket holds it, say a ticket is needed. Governance says non-code work
+leaves the change, and this group is where that gets noticed.
 
 ### Sections
 
-Use only these, in this order. Omit any with nothing to say.
+Use only these, in this order. **Omit any section with nothing in it**, without
+comment.
 
-- **Code complete** — finished code awaiting its closing check, each with that
-  check named.
+- **Code complete** — finished code awaiting its closing check.
 - **In progress**
 - **Todo**
 - **Backlog** — at most 12 tasks in total across its categories. Where more
   exist, cut the least pressing and end the section with one line giving the
   number not shown.
-- **Mismatches** — at most 4 bullets, each one inconsistency between Linear and
-  OpenSpec that no task line above already resolves: a ticket naming a change
-  that is archived or absent, an unchecked box over code that already exists, a
-  box annotated as impossible in code and left in an active change, two tickets
-  claiming the same work, or a ticket whose title says shipped while it sits
-  open. Each line states what is inconsistent and what closes it.
-  - A change with no ticket is **not** a mismatch. It is a task, and it is listed
-    as one.
+- **Open items** — at most 4 inconsistencies between Linear, OpenSpec and the
+  code that no task above already resolves.
 
 Close with a single line offering the detail held in context. That line is not a
 section and carries no bullet.
+
+### Open items, answer first
+
+This section is where a reader gets confused, because each item is a small
+process fault with a history. Write it as a Minto pyramid: **the top line is the
+conclusion and what to do about it**, and the nested bullets exist only to
+support that.
+
+- The top line states what is wrong or what is owed, in plain words, and it is
+  true on its own.
+- Nested bullets carry, in this order and only where they apply: what is actually
+  the case in the code, why it ended up that way, and the exact thing to run,
+  look at or decide.
+- The reader must never have to ask "is this done or not?" after reading it. Say
+  which.
+- Every identifier in this section carries what it is, by the rule above. This
+  section breaks that rule more than any other, so check it twice.
+
+What belongs here: a ticket naming a change that is archived or absent, an
+unchecked box over code that already exists, a box that cannot be finished in
+code and is still sitting in an active change, two tickets claiming the same
+work, a ticket whose title says shipped while it sits open.
+
+A change with no ticket is **not** an open item. It is a task, and it is listed
+as one.
+
+Worked item:
+
+- **The credit-spending change is finished and can be archived, once its one
+  unwritable test is moved to a ticket.**
+  - The feature works: a priced command charges credits once, after the enabled,
+    cooldown and per-stream-limit checks and before the command runs.
+  - The unchecked box asks for a unit test proving a refused command charges
+    nothing, and that test cannot be written, because the whole decision happens
+    inside one function that reads the database at every step with no place to
+    substitute a fake.
+  - Confirm it by hand instead: run `!tts` twice in a preview session and check
+    the balance in `!me` moves once, not twice.
+  - Then remove the box, run `openspec validate --strict`, and archive.
 
 ### Format
 
@@ -312,17 +365,17 @@ Follow the `/simple` format: read `.claude/skills/simple/SKILL.md` and apply it,
 with the exceptions below.
 
 - Bold one-line section titles that are not themselves list items.
-- Category parents end with a colon and are bold.
+- Category parents are bold and end with a colon.
 - Bulleted facts only: no prose paragraphs, no numbered lists, no tables.
-- Passive voice, no pronouns as standing subjects, one task per bullet.
+- Passive voice, no pronouns as standing subjects, one fact per bullet.
 - No em-dashes; dates, where one is unavoidable, written as D-Mon-YYYY.
 
 Four rules of `/simple` are overridden here:
 
-- Ticket identifiers and OpenSpec change ids are required on every line, because
-  the user opens them.
+- Ticket identifiers and OpenSpec change ids are required, because the user opens
+  them.
 - The list is an enumeration by design, and is not collapsed into a synthesis.
-- Category parents are labels, which `/simple` forbids. The category is doing
+- Category parents are labels, which `/simple` forbids. The category does
   structural work, and the meaning sits on the task lines beneath it.
 - There is no opening answer line above the first section. The first group is the
   answer.
