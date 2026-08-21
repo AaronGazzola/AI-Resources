@@ -245,7 +245,37 @@ apply:
   placement that needs its reason given.
 
 Keep every bullet to one line. A bullet needing a second clause is two bullets.
-Never nest a third level under a task.
+
+### A bullet that refers back is nested under what it refers to
+
+Indentation is what a bullet depends on, not decoration. Two bullets side by side
+are two facts that stand on their own, so a bullet that cannot be understood
+without the one above it is in the wrong place.
+
+- Where a bullet refers to the content of the bullet above, **nest it under that
+  bullet**. The giveaway words are "both", "either", "it", "that", "the other",
+  "then", "instead", "so", "which closes it".
+- Where a bullet refers to the content of two or more bullets above it, those
+  bullets and it belong together: nest them all under a new parent stating what
+  they have in common.
+- Where a bullet genuinely stands alone, keep it a sibling. Do not nest for
+  rhythm or to make a list look shallow.
+- Nest as deep as the dependency actually goes. A third and fourth level are
+  correct where each level depends on the one above; what is forbidden is a level
+  that carries no dependency.
+
+Worked example:
+
+- Rejected, two siblings where the second depends on the first:
+  - "AZ-250 covers switching the ladder on; AZ-252 covers installing it."
+  - "Both describe the same session, so whichever is kept absorbs the other."
+- Accepted, the second nested under the first:
+  - "AZ-250 covers switching the ladder on; AZ-252 covers installing it."
+    - "Both describe the same session, so whichever is kept absorbs the other."
+
+The same test applies to the closing check of a **Code complete** task: where the
+archive step only makes sense after the check above it has passed, it is nested
+under that check, not listed beside it.
 
 ### Shape
 
@@ -377,6 +407,8 @@ Four rules of `/simple` are overridden here:
 - The list is an enumeration by design, and is not collapsed into a synthesis.
 - Category parents are labels, which `/simple` forbids. The category does
   structural work, and the meaning sits on the task lines beneath it.
+- Nesting runs as deep as the dependencies do, rather than stopping at one level,
+  because a bullet that refers back to another must sit under it.
 - There is no opening answer line above the first section. The first group is the
   answer.
 
