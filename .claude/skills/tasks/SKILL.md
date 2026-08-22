@@ -1,6 +1,6 @@
 ---
 name: tasks
-description: List the open work for this repo's project, taking a Linear ticket, an OpenSpec change, or the pair of them as one task, grouped code complete then in progress then todo then backlog, categorised inside each group and ordered most to least pressing. Stops without a list if the Linear MCP is not connected or the project for this repo cannot be confirmed. Invoke with /tasks.
+description: List the open work for this repo's project, taking a Linear ticket, an OpenSpec change, or the pair of them as one task, grouped code complete then in progress then todo then backlog, categorised inside each group, capped per category and ordered most to least pressing. Uses any wider project state a caller has already gathered to decide what is most pressing. Stops without a list if the Linear MCP is not connected or the project for this repo cannot be confirmed. Invoke with /tasks.
 ---
 
 # /tasks — the open work, grouped and ordered
@@ -121,6 +121,28 @@ where the change id alone does not say what the work is.
 Read `openspec/changes/archive/` only to resolve a ticket that claims a change
 which is no longer active.
 
+### Context already gathered by a caller
+
+This skill is run on its own, and it is also run as the closing section of
+`/sync`, which has by then read the roadmap documents, the deployment position,
+the database advisors, the working tree and any handover document. That state is
+not gathered here, and on its own this skill does without it.
+
+Where a caller has already gathered it, **use it, and do not re-read it**:
+
+- **Do not gather anything twice.** Linear issues, active changes, task files and
+  the branch list already in context are used as they are. Read only what is
+  genuinely missing.
+- **Let it decide what is most pressing.** A ticket the roadmap puts in the
+  current phase outranks one from a later phase; a bug reachable in production
+  outranks the same bug behind a flag; a change whose migration is already
+  applied to the remote database is closer to done than its boxes suggest.
+- **Say on the line why the placement was made**, in a few words, wherever the
+  reason came from context this list does not otherwise show.
+- **Absorb the fact rather than leaving it for the caller.** Anything that fits
+  on a task line belongs on that task line, so the caller's own sections carry
+  only what has no ticket and no change behind it.
+
 ### Git — cheap context only
 
 ```bash
@@ -197,13 +219,35 @@ nothing, and no group is announced in order to say it is quiet. A group the
 reader cannot see is a group with nothing in it, and that reads faster than a
 sentence saying so.
 
+### Cap every category
+
+A list nobody finishes reading orders nothing. Every category is capped, and the
+cap is on the category, not only on the group.
+
+| Group | Tasks shown per category |
+| --- | --- |
+| Code complete | 5 |
+| In progress | 5 |
+| Todo | 5 |
+| Backlog | 3, and 12 across the whole group |
+
+- **Order first, then cut.** The cap removes the least pressing tasks in a
+  category, by the ordering below, never an arbitrary few.
+- **A cut is stated, never silent.** Where a category holds more than its cap,
+  its last line is one bullet giving the number not shown, at the same level as
+  the task bullets: "Four further features are not shown."
+- **The cut line carries nothing else.** No names, no reasons.
+- The **Backlog** group obeys both caps, and the tighter one wins.
+
 ## 6. Order
 
 Order the categories as listed above. Inside a category, order by the first rule
 that applies:
 
 1. **Live harm** — a security hole, a data-loss risk, or a bug affecting
-   production or a running broadcast.
+   production or a running broadcast. Where a caller has supplied the deployment
+   position or the database advisors, a fault confirmed to be live outranks the
+   same fault that is only described in a ticket.
 2. **Blocks other listed work** — the foundation a later task in this list cannot
    start without. Where two block, the one blocking more of the list goes higher.
 3. **Priority** — Linear's Urgent above High above Medium above Low.
@@ -341,11 +385,12 @@ comment.
 - **Code complete** — finished code awaiting its closing check.
 - **In progress**
 - **Todo**
-- **Backlog** — at most 12 tasks in total across its categories. Where more
-  exist, cut the least pressing and end the section with one line giving the
-  number not shown.
+- **Backlog**
 - **Open items** — at most 4 inconsistencies between Linear, OpenSpec and the
   code that no task above already resolves.
+
+Every category inside the first four sections obeys the caps above, and states
+the number cut where a cap bites.
 
 Close with a single line offering the detail held in context. That line is not a
 section and carries no bullet.
@@ -374,6 +419,12 @@ work, a ticket whose title says shipped while it sits open.
 
 A change with no ticket is **not** an open item. It is a task, and it is listed
 as one.
+
+**Dead work is one bullet, grouped.** Cancelled tickets, duplicates, branches
+and worktrees holding nothing unique, and superseded approaches are never
+itemised. One bullet gives the count and the shared cause, and its nested bullet
+gives the single action that clears them all. Where clearing them needs no
+decision, no bullet is written at all.
 
 Worked item:
 
